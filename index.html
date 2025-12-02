@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini-Trello Terminal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&family=Outfit:wght@400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Left Panel: System Constraints -->
+        <aside class="panel left-panel">
+            <div class="panel-header">
+                <h2>Task Board</h2>
+            </div>
+            <div class="panel-content">
+                <div class="constraint-group">
+                    <h3>FILTERS</h3>
+                    <div class="search-box">
+                        <label for="search-input">> SEARCH_QUERY</label>
+                        <input type="text" id="search-input" placeholder="Enter keywords...">
+                    </div>
+                    <div class="filter-box">
+                        <label>> PRIORITY_LEVEL</label>
+                        <div class="priority-filters">
+                            <button class="filter-btn active" data-priority="all">ALL</button>
+                            <button class="filter-btn" data-priority="high">HIGH</button>
+                            <button class="filter-btn" data-priority="medium">MED</button>
+                            <button class="filter-btn" data-priority="low">LOW</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="constraint-group">
+                    <h3>STATS</h3>
+                    <div class="stat-row"><span>TOTAL_TASKS:</span> <span id="stat-total">0</span></div>
+                    <div class="stat-row"><span>PENDING:</span> <span id="stat-pending">0</span></div>
+                    <div class="stat-row"><span>COMPLETED:</span> <span id="stat-completed">0</span></div>
+                </div>
+                <div class="constraint-group">
+                    <h3>ACTIONS</h3>
+                    <button id="btn-create-task" class="action-btn">[ NEW TASK ]</button>
+                    <button id="btn-clear-done" class="action-btn warning">[ PURGE COMPLETED ]</button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Center: Kanban Board -->
+        <main class="board-container">
+            <div class="column" id="col-todo" data-status="todo">
+                <div class="column-header">
+                    <h2>TODO</h2>
+                    <div class="column-count">0</div>
+                </div>
+                <div class="task-list" id="list-todo">
+                    <!-- Tasks will be injected here -->
+                </div>
+            </div>
+
+            <div class="column" id="col-inprogress" data-status="inprogress">
+                <div class="column-header">
+                    <h2>IN_PROGRESS</h2>
+                    <div class="column-count">0</div>
+                </div>
+                <div class="task-list" id="list-inprogress">
+                    <!-- Tasks will be injected here -->
+                </div>
+            </div>
+
+            <div class="column" id="col-done" data-status="done">
+                <div class="column-header">
+                    <h2>DONE</h2>
+                    <div class="column-count">0</div>
+                </div>
+                <div class="task-list" id="list-done">
+                    <!-- Tasks will be injected here -->
+                </div>
+            </div>
+        </main>
+
+
+    </div>
+
+    <!-- Modal for Task Creation/Editing -->
+    <div id="task-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">TASK_CONFIGURATION</h2>
+                <button class="close-modal">X</button>
+            </div>
+            <form id="task-form">
+                <input type="hidden" id="task-id">
+                <div class="form-group">
+                    <label for="task-title">TITLE</label>
+                    <input type="text" id="task-title" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="task-desc">DESCRIPTION</label>
+                    <textarea id="task-desc" rows="3"></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="task-priority">PRIORITY</label>
+                        <select id="task-priority">
+                            <option value="high">HIGH</option>
+                            <option value="medium" selected>MEDIUM</option>
+                            <option value="low">LOW</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="task-due">DUE_DATE</label>
+                        <input type="date" id="task-due">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="task-tags">TAGS (comma separated)</label>
+                    <input type="text" id="task-tags" placeholder="frontend, bug, ui">
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="cancel-btn close-modal">CANCEL</button>
+                    <button type="submit" class="save-btn">EXECUTE</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js" defer></script>
+</body>
+
+</html>
